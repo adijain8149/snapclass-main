@@ -1,0 +1,11 @@
+streamlit
+supabase
+bcrypt
+pandas
+numpy
+Pillow
+face_recognition_models
+dlib
+scikit-learn
+librosa
+resemblyzer
