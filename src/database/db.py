@@ -1,4 +1,14 @@
 from src.database.config import supabase
+import streamlit as st
+
+if supabase is None or hasattr(supabase, 'is_mock'):
+    # If it's the mock or None, we want to ensure the error is shown
+    if hasattr(supabase, 'table'):
+        supabase.table() # This will trigger the Mock's error and st.stop()
+    else:
+        st.error("🚨 Supabase client failed to initialize. Please check your Secrets.")
+        st.stop()
+
 import bcrypt
 def hash_pass(pwd):
     return bcrypt.hashpw(pwd.encode(),bcrypt.gensalt()).decode()
