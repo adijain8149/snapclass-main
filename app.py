@@ -1,5 +1,16 @@
 
 import streamlit as st
+# --- Deployment Health Check ---
+try:
+    import supabase
+    import bcrypt
+    import dlib
+    import resemblyzer
+    import librosa
+except ImportError as e:
+    st.error(f"❌ **Missing Dependency**: {e}")
+    st.info("This usually happens if Streamlit Cloud is still installing your `requirements.txt`. Please wait a few minutes and **Reboot** the app if this persists.")
+    st.stop()
 
 from src.screen.home_screen import home_screen
 from src.screen.teacher_screen import teacher_screen
@@ -8,6 +19,10 @@ from src.components.dialog_autoenroll import auto_enroll_dialog
 
 
 def main():
+    st.set_page_config(
+        page_title='Snapclass - Making Attendence Faster Using AI',
+        page_icon= "filled_logo.png"
+    )
     if 'login_type' not in st.session_state:
         st.session_state['login_type'] = None
 
