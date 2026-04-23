@@ -44,8 +44,16 @@ def get_teacher_subject(teacher_id):
         sub.pop('subject_students', None)
         sub.pop ('attendance_logs', None)
     return subjects
-def enroll_student_to_subject(student_id , subject_id):
-    data = {'student_id':student_id , "subject_id":subject_id}
+def enroll_student_to_subject(student_id , subject_code):
+    # Lookup the subject_id using the subject_code string
+    response = supabase.table('subjects').select('subject_id').eq('subject_code', subject_code).execute()
+    
+    if not response.data:
+        raise Exception(f"Subject Code '{subject_code}' not found!")
+        
+    subject_id = response.data[0]['subject_id']
+    
+    data = {'student_id': student_id , "subject_id": subject_id}
     response = supabase.table('subject_students').insert(data).execute()
     return response.data
 def unenroll_student_to_subject(student_id , subject_id):
