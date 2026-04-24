@@ -19,9 +19,6 @@ def student_dashboard():
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
 
-    # Trigger Quick Enrollment popup if arriving via join link
-    if 'join_code' in st.session_state:
-        auto_enroll_dialog(st.session_state.join_code)
     c1, c2 = st.columns(2, vertical_alignment='center')
     with c1:
         header_dashboard()
