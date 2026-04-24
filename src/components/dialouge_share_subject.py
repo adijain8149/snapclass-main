@@ -10,7 +10,7 @@ def share_subject_dialog(subject_name, subject_code):
     elif "custom_domain" in st.session_state:
         app_domain = st.session_state["custom_domain"]
     else:
-        app_domain = "snapsclass-main.streamlit.app"
+        app_domain = "adijain-snapclass.streamlit.app"
 
     join_url = f"https://{app_domain}/?join-code={subject_code}"
     st.header("scan to join")
