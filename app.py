@@ -26,20 +26,29 @@ def main():
     if 'login_type' not in st.session_state:
         st.session_state['login_type'] = None
 
+    # --- Handle ?join-code= URL param ---
+    join_code = st.query_params.get('join-code')
+    if join_code:
+        # Always persist the join code in session so it survives reruns
+        st.session_state['join_code'] = join_code
+
     match st.session_state['login_type']:
         case 'teacher':
             teacher_screen()
         case 'student':
             student_screen()
         case None:
-            home_screen()
+            if join_code:
+                # Redirect directly to student attendance verification
+                st.session_state.login_type = 'student'
+                st.rerun()
+            else:
+                home_screen()
 
-    join_code = st.query_params.get('join-code')
-    if join_code :
-        if st.session_state.login_type!= 'student':
-            st.session_state.login_type = 'student'
-            st.rerun()
-        if st.session_state.get('is_logged_in')and st.session_state.get('user_role')=='student':
-            auto_enroll_dialog(join_code)
+    # After login: trigger auto-enroll dialog if join_code is active
+    if (st.session_state.get('is_logged_in')
+            and st.session_state.get('user_role') == 'student'
+            and 'join_code' in st.session_state):
+        auto_enroll_dialog(st.session_state['join_code'])
 if __name__ == "__main__":
     main()
