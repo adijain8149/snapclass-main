@@ -116,12 +116,12 @@ def student_screen():
         header_dashboard()
     with c2:
         st.markdown('<div style="display: flex; justify-content: flex-end; width:100%;">', unsafe_allow_html=True)
-        if st.button("Cancel", type="primary", key="loginbackbtn_login"):
+        if st.button("Go back to Home Ctrl+Backspace", type="primary", key="loginbackbtn_login", shortcut="control+backspace"):
             st.session_state.clear()
             st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("<h2 style='text-align:center; margin-top:20px; margin-bottom: 20px;'>Attendance Verification</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align:center; margin-top:20px; margin-bottom: 20px; font-family: \"Climate Crisis\", sans-serif; color: #2F3136;'>Login using FaceID</h2>", unsafe_allow_html=True)
 
     # Show join code banner if redirected from a share link
     if 'join_code' in st.session_state:

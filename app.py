@@ -31,6 +31,10 @@ def main():
     if join_code:
         # Always persist the join code in session so it survives reruns
         st.session_state['join_code'] = join_code
+        # Force switch to student login mode if a join code is present
+        if st.session_state['login_type'] != 'student':
+            st.session_state['login_type'] = 'student'
+            st.rerun()
 
     match st.session_state['login_type']:
         case 'teacher':
@@ -38,12 +42,7 @@ def main():
         case 'student':
             student_screen()
         case None:
-            if join_code:
-                # Redirect directly to student attendance verification
-                st.session_state.login_type = 'student'
-                st.rerun()
-            else:
-                home_screen()
+            home_screen()
 
     # After login: trigger auto-enroll dialog if join_code is active
     if (st.session_state.get('is_logged_in')
