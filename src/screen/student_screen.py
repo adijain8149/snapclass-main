@@ -121,7 +121,17 @@ def student_screen():
             st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("<h2 style='text-align:center; margin-top:20px; margin-bottom: 20px; font-family: \"Climate Crisis\", sans-serif; color: #2F3136;'>Login using FaceID</h2>", unsafe_allow_html=True)
+    # Dynamic Header based on purpose
+    if 'join_code' in st.session_state:
+        # Try to fetch subject name for the header
+        from src.database.config import supabase
+        res = supabase.table('subjects').select('name').eq('subject_code', st.session_state.join_code).execute()
+        subj_name = res.data[0]['name'] if res.data else "Subject"
+        header_text = f"Attendance Verification: {subj_name}"
+    else:
+        header_text = "Login using FaceID"
+
+    st.markdown(f"<h2 style='text-align:center; margin-top:20px; margin-bottom: 20px; font-family: \"Climate Crisis\", sans-serif; color: #2F3136;'>{header_text}</h2>", unsafe_allow_html=True)
 
     # Show join code banner if redirected from a share link
     if 'join_code' in st.session_state:
