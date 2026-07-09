@@ -100,7 +100,7 @@ def teacher_tab_take_attendance():
         selected_subject_label = st.selectbox('Select Subject', options=list(subject_options.keys()))
 
     with col2:
-        if st.button('Add Photos', type='primary', icon=':material/photo_prints:', width='stretch'):
+        if st.button('Add Photos', type='primary', icon=':material/photo_prints:', use_container_width=True):
             add_photos_dialog()
 
         selected_subject_id = subject_options[selected_subject_label]
@@ -112,18 +112,18 @@ def teacher_tab_take_attendance():
 
     for idx, img in enumerate(st.session_state.attendance_images):
         with gallery_cols[idx % 4]:
-            st.image(img, width='stretch', caption=f'Photo {idx+1}')
+            st.image(img, use_container_width=True, caption=f'Photo {idx+1}')
     has_photos = bool(st.session_state.attendance_images)
     c1, c2, c3 = st.columns(3)
 
     with c1:
-        if st.button('Clear all photos', width='stretch', type='tertiary', icon=':material/delete:', disabled= not has_photos):
+        if st.button('Clear all photos', use_container_width=True, type='tertiary', icon=':material/delete:', disabled= not has_photos):
             st.session_state.attendance_images = []
             st.rerun()
 
     with c2:
         
-        if st.button('Run Face Analysis', width='stretch', type='secondary', icon=':material/analytics:', disabled= not has_photos ):
+        if st.button('Run Face Analysis', use_container_width=True, type='secondary', icon=':material/analytics:', disabled= not has_photos ):
             with st.spinner('Deep scanning classroom photos...'):
                 all_detected_ids = {}
 
@@ -168,7 +168,7 @@ def teacher_tab_take_attendance():
                     
                     attendence_result_dialog(pd.DataFrame(results),attendance_to_log)
     with c3:
-        if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
+        if st.button('Use Voice Attendance', type='primary', use_container_width=True, icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
 
 
