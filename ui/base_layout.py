@@ -3,12 +3,13 @@ def style_background_home():
     st.markdown("""
         <style>
             .stApp, [data-testid="stAppViewContainer"], .stApp > header {
-                background-color: #5865F2 !important;
+                background-color: #FFFFFF !important;
             }
             div[data-testid="column"], div[data-testid="stColumn"] {
-                background-color: #E0E3FF !important;
+                background-color: #F8F9FA !important;
                 padding: 1rem !important;
                 border-radius: 3.5rem !important;
+                border: 1px solid #E9ECEF !important;
             }
         </style>
 """ , unsafe_allow_html = True)
@@ -16,7 +17,7 @@ def style_background_dashboard():
     st.markdown("""
         <style>
             .stApp, [data-testid="stAppViewContainer"] {
-                background-color: #E0E3FF !important;
+                background-color: #FFFFFF !important;
             }
         </style>
 """ , unsafe_allow_html = True)
