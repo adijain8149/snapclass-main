@@ -38,8 +38,9 @@ def auto_enroll_dialog(subject_code):
         st.success(f"You are already enrolled in **{subject['name']}**")
         st.markdown("Would you like to **Verify Attendance** for today's session?")
         if st.button('Mark me Present ✅', type='primary', use_container_width=True):
-            from datetime import datetime
-            current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            from datetime import datetime, timezone, timedelta
+            ist = timezone(timedelta(hours=5, minutes=30))
+            current_timestamp = datetime.now(ist).isoformat()
             create_attendance([{
                 'student_id': student_id,
                 'subject_id': subject['subject_id'],
@@ -77,8 +78,9 @@ def auto_enroll_dialog(subject_code):
             enroll_student_to_subject(student_id, subject_code)
             
             # Also mark attendance immediately upon enrollment
-            from datetime import datetime
-            current_timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+            from datetime import datetime, timezone, timedelta
+            ist = timezone(timedelta(hours=5, minutes=30))
+            current_timestamp = datetime.now(ist).isoformat()
             create_attendance([{
                 'student_id': student_id,
                 'subject_id': subject['subject_id'],
