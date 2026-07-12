@@ -3,13 +3,13 @@ def style_background_home():
     st.markdown("""
         <style>
             .stApp, [data-testid="stAppViewContainer"], .stApp > header {
-                background-color: #FFFFFF !important;
+                background-color: #5865F2 !important;
             }
             div[data-testid="column"], div[data-testid="stColumn"] {
-                background-color: #F8F9FA !important;
+                background-color: #E0E3FF !important;
                 padding: 1rem !important;
                 border-radius: 3.5rem !important;
-                border: 1px solid #E9ECEF !important;
+                border: none !important;
             }
         </style>
 """ , unsafe_allow_html = True)
