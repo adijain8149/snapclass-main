@@ -6,6 +6,15 @@ def home_screen():
     header_home()
     style_base_layout()
     style_background_home()
+
+    # Silent database ping to prevent Supabase from pausing (keeps database active 24/7)
+    try:
+        from src.database.config import supabase
+        if supabase and not hasattr(supabase, 'is_mock'):
+            supabase.table('teachers').select('teacher_id').limit(1).execute()
+    except Exception:
+        pass
+
     col1, col2 = st.columns(2,gap="large")
 
     with col1:
